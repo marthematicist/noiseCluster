@@ -48,13 +48,45 @@ class Cluster {
     }
   }
   
+  void drawEllipses( PGraphics pg  , float diam ) {
+    pg.noFill();
+    for( int i = 0 ; i < num ; i++ ) {
+      pg.ellipse( P[i].p.x , P[i].p.y , diam , diam );
+    }
+  }
+  
+  void drawRandomConnections( PGraphics pg ) {
+    int N = num/2;
+    for( int i = 0 ; i < N ; i ++ ) {
+      pg.line( P[i].p.x , P[i].p.y , P[i+N].p.x , P[i+N].p.y );
+    }
+  }
+  
+  void drawNormals( PGraphics pg , float w ) {
+    for( int i = 0 ; i < num ; i++ ) {
+      PVector b = new PVector( -P[i].v.y , P[i].v.x );
+      b.normalize();
+      float x1 = P[i].p.x + 0.5*w*b.x;
+      float y1 = P[i].p.y + 0.5*w*b.y;
+      float x2 = P[i].p.x - 0.5*w*b.x;
+      float y2 = P[i].p.y - 0.5*w*b.y;
+      pg.line( x1 , y1 , x2 , y2 );
+    }
+  }
+  
   void drawConnections( PGraphics pg ) {
+    float fade1 = minDist + fadeAmt*( maxDist - minDist );
+    float fade2 = maxDist - fadeAmt*( maxDist - minDist );
     for( int m = 1 ; m < num ; m++ ) {
       for( int n = 0 ; n < m ; n++ ) {
         float d = getDist( m , n );
         if( d >= minDist && d <= maxDist ) {
           PVector p1 = P[m].p.copy();
           PVector p2 = P[n].p.copy();
+          float a = strokeAlpha;
+          if( d < fade1 ) { a = strokeAlpha*(d-minDist) / (fade1-minDist) ; }
+          if( d > fade2 ) { a = strokeAlpha*(maxDist-d) / (maxDist-fade2) ; }
+          pg.stroke( 255 , 255 , 255 , a );
           pg.line( p1.x , p1.y , p2.x , p2.y );
         }
       } 
