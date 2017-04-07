@@ -29,7 +29,7 @@ class Cluster {
   void evolve( float nx , float ny , float t , float dt ) {
     for( int i = 0 ; i < num ; i++ ) {
       float x = 0.5 + 0.5*cos( TWO_PI * P[i].p.x / ext.x );
-      float y = 0.5 + 0.5*sin( TWO_PI * P[i].p.y / ext.y );
+      float y = 0.5 + 0.5*cos( TWO_PI * P[i].p.y / ext.y );
       float ang = 8*PI*noise( nx*x , ny*y , t );
       PVector f = PVector.fromAngle( ang );
       F[i] = f.copy();
@@ -39,7 +39,7 @@ class Cluster {
       if( P[i].p.x > max.x ) { P[i].p.x = P[i].p.x - max.x; }
       if( P[i].p.y > max.y ) { P[i].p.y = P[i].p.y - max.y; }
     }
-    //setDistances();
+    setDistances();
   }
   
   void drawPositions( PGraphics pg ) {
