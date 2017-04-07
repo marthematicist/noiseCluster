@@ -3,10 +3,10 @@ int numParticles = 1000;
 float minDist = 50;
 float fadeDist = 30;
 float maxDist = 60;
+float diameter = 5;
 
-
-float bgAlpha = 10;
-float strokeAlpha = 40;
+float bgAlpha = 5;
+float strokeAlpha = 255;
 
 float noiseX = 3;
 float noiseY = 3;
@@ -17,7 +17,7 @@ float maxMass = 1;
 float maxVel = 4;
 
 float t = 0;
-float dt = 0.2;
+float dt = 0.8;
 
 Cluster C;
 PGraphics pg;
@@ -39,8 +39,8 @@ void draw() {
   pg.background( 0 , 0 , 0 , bgAlpha );
   pg.stroke(255,255,255,strokeAlpha);
   pg.fill(255);
-  //C.drawPositions( pg);
-  C.drawConnections( pg );
+  C.drawPositions( pg);
+  //C.drawConnections( pg );
   pg.endDraw();
   image( pg , 0 , 0 );
   

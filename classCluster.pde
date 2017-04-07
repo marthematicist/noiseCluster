@@ -39,12 +39,12 @@ class Cluster {
       if( P[i].p.x > max.x ) { P[i].p.x = P[i].p.x - max.x; }
       if( P[i].p.y > max.y ) { P[i].p.y = P[i].p.y - max.y; }
     }
-    setDistances();
+    //setDistances();
   }
   
   void drawPositions( PGraphics pg ) {
     for( int i = 0 ; i < num ; i++ ) {
-      pg.ellipse( P[i].p.x , P[i].p.y , 2 , 2 );
+      pg.ellipse( P[i].p.x , P[i].p.y , diameter , diameter );
     }
   }
   
